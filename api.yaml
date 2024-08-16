@@ -1,0 +1,546 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/BUDWANDINGER_1/wingnut-api/1.0.0
+info:
+  version: "1.0.0"
+  title: wingnut-api
+  description: The API for Wingnut IoT
+paths:
+  /users:
+    get:
+      summary: Get a list of account user IDs
+      description: Get a list of account user IDs
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      responses:
+        '200':
+          $ref: '#/components/responses/UsersFetched'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      summary: Query users
+      description: Query detail for users
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      requestBody:
+        $ref: '#/components/requestBodies/QueryEntities'
+      responses:
+        '200':
+          $ref: '#/components/responses/UsersQueried'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /wingnuts:
+    get:
+      summary: Get a list of account wingnut device IDs
+      description: Get a list of account wingnut device IDs
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      responses:
+        '200':
+          $ref: '#/components/responses/WingnutsFetched'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      summary: Query wingnut devices
+      description: Query detail for wingnut devices
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      requestBody:
+        $ref: '#/components/requestBodies/QueryEntities'
+      responses:
+        '200':
+          $ref: '#/components/responses/WingnutsQueried'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /properties:
+    get:
+      summary: Get a list of account property IDs
+      description: Get a list of account property IDs
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      responses:
+        '200':
+          $ref: '#/components/responses/PropertiesFetched'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      summary: Query properties
+      description: Query detail for properties
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      requestBody:
+        $ref: '#/components/requestBodies/QueryEntities'
+      responses:
+        '200':
+          $ref: '#/components/responses/PropertiesQueried'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /properties/records:
+    post:
+      summary: Query property records
+      description: Query property data records
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      requestBody:
+        $ref: '#/components/requestBodies/QueryPropertyRecords'
+      responses:
+        '200':
+          $ref: '#/components/responses/PropertyRecordsQueried'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    Label:
+      type: string
+      example: "SystemPumpCurrent1"
+      description: Label/descriptor of the sensor's data
+    Data:
+      type: object
+      properties:
+        label:
+          $ref: '#/components/schemas/Label'
+        value:
+          anyOf:
+            - type: boolean
+            - type: number
+              format: float
+    Record:
+      type: object
+      properties:
+        propertyId:
+          type: string
+          format: uuid
+          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          description: Static UUID-4 for property
+        propertyName:
+          type: string
+          example: "Happy Appartments"
+          description: User customizable name for property
+        propertyExternalId:
+          type: string
+          example: "00123-A"
+          description: User customizable ID for property
+        timestamp:
+          type: string
+          format: timestamp
+          example: "2024-08-17T15:29:15"
+          description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data'
+    Address:
+      type: object
+      properties:
+        city:
+          type: string
+          example: "Calgary"
+          description: The city in whichthe property is located
+        country:
+          type: string
+          example: "Canada"
+          description: The country in which the property is located
+        postalZip:
+          type: string
+          example: "A1A 2B2"
+          description: The postal or zip code for the property
+        provinceState:
+          type: string
+          example: "Alberta"
+          description: The proince or state in which the property is located
+        streetAddress:
+          type: string
+          example: "123 Happy Street NW"
+          description: The street address of the property
+    Threshold:
+      type: object
+      properties:
+        max:
+          type: integer
+          example: 210
+          description: Sensor data points GREATER than this maximum threshold will trigger a property alarm
+        min:
+          type: integer
+          example: 50
+          description: Sensor data pointes LESS than this minimum threshold will trigger a property alarm
+        thresholdStatus:
+          type: string
+          example: "enabled"
+          description: Whether or not this threshold entity can trigger a property alarm (enabled/disabled)
+    Recipient:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          description: The user ID of the recipient. Querable via /users endpoint
+        type:
+          type: string
+          example: "email"
+          description: The notification method/s for the recipient. Currently only supports email
+    Sensor:
+      type: object
+      properties:
+        label:
+          $ref: '#/components/schemas/Label'
+        type:
+          type: string
+          example: "thermistor4334K"
+          description: The type of sensor
+        threshold:
+          $ref: '#/components/schemas/Threshold'
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          description: Static UUID-4 for property
+        name:
+          type: string
+          example: "Happy Appartments"
+          description: User customizable name for property
+        externalId:
+          type: string
+          example: "00123-A"
+          description: User customizable ID for property
+        portfolio:
+          type: string
+          example: "A1"
+          description: User customizable portfolio name/ID for property
+        address:
+          $ref: '#/components/schemas/Address'
+        sensors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sensor'
+          description: A list of active sensors that exist for the property based on its linked Wingnut devices
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+          description: A list of users that will recieve notifications when property alarms are triggered
+    Wingnut:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          description: Static UUID-4 for wingnut
+        sensors:
+          type: object
+          properties:
+            AN1:
+              $ref: '#/components/schemas/Sensor'
+            AN2:
+              $ref: '#/components/schemas/Sensor'
+            AN3:
+              $ref: '#/components/schemas/Sensor'
+            AN4:
+              $ref: '#/components/schemas/Sensor'
+            AN5:
+              $ref: '#/components/schemas/Sensor'
+            AN6:
+              $ref: '#/components/schemas/Sensor'
+            AN7:
+              $ref: '#/components/schemas/Sensor'
+            AN8:
+              $ref: '#/components/schemas/Sensor'
+            AN9:
+              $ref: '#/components/schemas/Sensor'
+            AN10:
+              $ref: '#/components/schemas/Sensor'
+            AN11:
+              $ref: '#/components/schemas/Sensor'
+            AN12:
+              $ref: '#/components/schemas/Sensor'
+            AN13:
+              $ref: '#/components/schemas/Sensor'
+            AN14:
+              $ref: '#/components/schemas/Sensor'
+            AN15:
+              $ref: '#/components/schemas/Sensor'
+            AN16:
+              $ref: '#/components/schemas/Sensor'
+            AN17:
+              $ref: '#/components/schemas/Sensor'
+            AN18:
+              $ref: '#/components/schemas/Sensor'
+            AN19:
+              $ref: '#/components/schemas/Sensor'
+            AN20:
+              $ref: '#/components/schemas/Sensor'
+            AN21:
+              $ref: '#/components/schemas/Sensor'
+            AN22:
+              $ref: '#/components/schemas/Sensor'
+            AN23:
+              $ref: '#/components/schemas/Sensor'
+            AN24:
+              $ref: '#/components/schemas/Sensor'
+            AN25:
+              $ref: '#/components/schemas/Sensor'
+            AN26:
+              $ref: '#/components/schemas/Sensor'
+            AN27:
+              $ref: '#/components/schemas/Sensor'
+            AN28:
+              $ref: '#/components/schemas/Sensor'
+            AN29:
+              $ref: '#/components/schemas/Sensor'
+            AN30:
+              $ref: '#/components/schemas/Sensor'
+            AN31:
+              $ref: '#/components/schemas/Sensor'
+            AN32:
+              $ref: '#/components/schemas/Sensor'
+            DI1:
+              $ref: '#/components/schemas/Sensor'
+            DI2:
+              $ref: '#/components/schemas/Sensor'
+            DI3:
+              $ref: '#/components/schemas/Sensor'
+            DI4:
+              $ref: '#/components/schemas/Sensor'
+            DI5:
+              $ref: '#/components/schemas/Sensor'
+            DI6:
+              $ref: '#/components/schemas/Sensor'
+            DI7:
+              $ref: '#/components/schemas/Sensor'
+            DI8:
+              $ref: '#/components/schemas/Sensor'
+            DI9:
+              $ref: '#/components/schemas/Sensor'
+            DI10:
+              $ref: '#/components/schemas/Sensor'
+            DI11:
+              $ref: '#/components/schemas/Sensor'
+            DI12:
+              $ref: '#/components/schemas/Sensor'
+            DI13:
+              $ref: '#/components/schemas/Sensor'
+            DI14:
+              $ref: '#/components/schemas/Sensor'
+            DI15:
+              $ref: '#/components/schemas/Sensor'
+            DI16:
+              $ref: '#/components/schemas/Sensor'
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          description: ID of the user
+        firstName:
+          type: string
+          example: "Bruce"
+          description: The user's first name
+        lastName:
+          type: string
+          example: "Willis"
+          description: The user's last name
+        phone:
+          type: string
+          example: "+11231231234"
+          description: The user's phone number
+        email:
+          type: string
+          example: "bruce.willis@gmail.com"
+          description: The user's email address
+        role:
+          type: string
+          example: "admin"
+          description: The user's role/permissions within their company's Wingnut user portal (admin/write/read)
+        status:
+          type: string
+          example: "verified"
+          description: The user's account status within the Wingnut user portal (pending/verified)
+    inline_response:
+      required:
+        - error
+        - errorCode
+      type: object
+      properties:
+        error:
+          type: string
+        errorCode:
+          type: integer
+    IdList:
+      type: array
+      items:
+        type: string
+        example: "12345678-90ab-cdef-1234-567890abcdef"
+        description: Entity ID
+  parameters:
+    X-Auth-Token:
+      name: X-Auth-Token
+      in: header
+      description: Authentication token
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    QueryEntities:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdList'
+      required: true
+    QueryPropertyRecords:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              start_timestamp:
+                type: string
+                format: timestamp
+                example: "2024-08-17T15:29:15"
+                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+              end_timestamp:
+                type: string
+                format: timestamp
+                example: "2024-08-17T15:29:15"
+                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+              properties:
+                $ref: '#/components/schemas/IdList'
+              labels:
+                type: array
+                items:
+                  type: string
+                  example: "BoilerSystemPressure1"
+                  description: A data label
+              next_token:
+                type: string
+                format: uuid
+                example: "12345678-90ab-cdef-1234-567890abcdef"
+                description: When supplied, returns the next subsequent page of results from a prior query.
+            required:
+              - start_timestamp
+              - end_timestamp
+  responses:
+    UsersFetched:
+      description: Successfully fetched account users IDs
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdList'
+    UsersQueried:
+      description: Successfully queried detailed account users
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    WingnutsFetched:
+      description: Successfully fetched account wingnut device IDs
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdList'
+    WingnutsQueried:
+      description: Successfully queried detailed account wingnut devices
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Wingnut'
+    PropertiesFetched:
+      description: Successfully fetched account property IDs
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdList'
+    PropertiesQueried:
+      description: Successfully queried detailed account properties
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Property'
+    PropertyRecordsQueried:
+      description: Successfully queried property records
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              start_timestamp:
+                type: string
+                format: timestamp
+                example: "2024-08-17T15:29:15"
+                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+              end_timestamp:
+                type: string
+                format: timestamp
+                example: "2024-08-17T15:29:15"
+                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+              records:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Record'
+              next_token:
+                type: string
+                nullable: true
+                format: uuid
+                example: "12345678-90ab-cdef-1234-567890abcdef"
+                description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
+    NoContent:
+      description: Request success - No content to deliver
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response'
+          example:
+            value:
+              error: 'Request body error: line 4, char 0'
+              errorCode: 400
+    Forbidden:
+      description: Invalid authentication or insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response'
+          example:
+            value:
+              error: Invalid authentication or insufficient permissions
+              errorCode: 403
+    ResourceNotFound:
+      description: Cannot find request resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response'
+          example:
+            value:
+              error: 'Entity does NOT exist: 12345678-90ab-cdef-1234-567890abcdef'
+              errorCode: 404
