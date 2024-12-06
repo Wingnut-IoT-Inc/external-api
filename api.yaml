@@ -4,7 +4,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/BUDWANDINGER_1/wingnut-api/1.0.0
 info:
-  version: '1.0.0'
+  version: '1.1.0'
   title: wingnut-api
   description: The API for Wingnut IoT
 paths:
@@ -183,22 +183,7 @@ components:
           type: string
           example: '123 Happy Street NW'
           description: The street address of the property
-    Threshold:
-      type: object
-      properties:
-        max:
-          type: integer
-          example: 210
-          description: Sensor data points GREATER than this maximum threshold will trigger a property alarm
-        min:
-          type: integer
-          example: 50
-          description: Sensor data pointes LESS than this minimum threshold will trigger a property alarm
-        thresholdStatus:
-          type: string
-          example: 'enabled'
-          description: Whether or not this threshold entity can trigger a property alarm (enabled/disabled)
-    Recipient:
+
       type: object
       properties:
         id:
@@ -210,6 +195,17 @@ components:
           type: string
           example: 'email'
           description: The notification method/s for the recipient. Currently only supports email
+    Alarms:
+      type: object
+      properties:
+        label:
+          type: string
+          example: 'boilerSystemPressure1'
+          description: A sensor label
+        type:
+          type: string
+          example: 'OK'
+          description: The current state of the sensor (OK / ALARM)
     Sensor:
       type: object
       properties:
@@ -231,7 +227,7 @@ components:
           description: Static UUID-4 for property
         name:
           type: string
-          example: 'Happy Appartments'
+          example: 'Happy Apartments'
           description: User customizable name for property
         externalId:
           type: string
@@ -243,16 +239,11 @@ components:
           description: User customizable portfolio name/ID for property
         address:
           $ref: '#/components/schemas/Address'
-        sensors:
-          type: array
+        alarms:
+          type: object
           items:
-            $ref: '#/components/schemas/Sensor'
-          description: A list of active sensors that exist for the property based on its linked Wingnut devices
-        recipients:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
-          description: A list of users that will recieve notifications when property alarms are triggered
+            $ref: '#/components/schemas/Alarms'
+          description: A list of active alarms that exist for the property
     Wingnut:
       type: object
       properties:
@@ -261,6 +252,40 @@ components:
           format: uuid
           example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: Static UUID-4 for wingnut
+        entityType:
+          type: string
+          format: string
+          example: 'wingnut'
+          description: Entity type
+        externalId:
+          type: string
+          format: string
+          example: '100'
+          description: Optional user supplied name
+        entityStatus:
+          type: string
+          example: 'verified'
+          description: The wingnuts status (live, linked, unlinked, unassigned)
+        companyName:
+          type: string
+          example: 'Example Inc'
+          description: The company the wingnut is registered to 
+        companyId:
+          type: string
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+          description: The company Id the wingnut is registered to 
+        propertyId:
+          type: string
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+          description: The property Id the wingnut is registered to 
+        latestPost:
+          type: string
+          example: '2024-10-30 17:36:25'
+          description: The timestamp of the latest wingnut post 
+        latestPostIp:
+          type: string
+          example: '96.51.48.35'
+          description: The ip address of the latest wingnut post 
         sensors:
           type: object
           properties:
@@ -368,7 +393,7 @@ components:
           format: uuid
           example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: ID of the user
-        entityId:
+        entityType:
           type: string
           format: string
           example: 'user'
@@ -378,6 +403,14 @@ components:
           format: string
           example: 'user'
           description: User email
+        entityStatus:
+          type: string
+          example: 'verified'
+          description: The user's account status within the Wingnut user portal (pending/verified)
+        companyName:
+          type: string
+          example: 'Example Inc'
+          description: The company the user is registered to 
         firstName:
           type: string
           example: 'Bruce'
@@ -394,14 +427,10 @@ components:
           type: string
           example: 'bruce.willis@gmail.com'
           description: The user's email address
-        role:
+        companyId:
           type: string
-          example: 'admin'
-          description: The user's role/permissions within their company's Wingnut user portal (admin/write/read)
-        entityStatus:
-          type: string
-          example: 'verified'
-          description: The user's account status within the Wingnut user portal (pending/verified)
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+          description: The company Id the user is registered to 
     inline_response:
       required:
         - error
