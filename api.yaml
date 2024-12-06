@@ -1,10 +1,6 @@
 openapi: 3.0.0
-servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/BUDWANDINGER_1/wingnut-api/1.0.0
 info:
-  version: '1.1.1'
+  version: '1.1.2'
   title: wingnut-api
   description: The API for Wingnut IoT
 paths:
