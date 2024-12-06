@@ -13,7 +13,7 @@ paths:
       summary: Get a list of account user IDs
       description: Get a list of account user IDs
       parameters:
-        - $ref: '#/components/parameters/x-api-key'
+        - $ref: '#/components/parameters/X-Auth-Token'
       responses:
         '200':
           $ref: '#/components/responses/UsersFetched'
@@ -453,17 +453,17 @@ components:
         ids:
           - '05d8339f-3353-438a-9f90-470f6a175c8e'
           - '08ee2554-d9a7-4b6f-b79a-025100cc65c3'
-  parameters:
-    X-Auth-Token:
-      name: x-api-key
-      in: header
-      description: Authentication token
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
+parameters:
+  X-Auth-Token:
+    name: x-api-key
+    in: header
+    description: Authentication token
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: string
+requestBodies:
     QueryEntities:
       content:
         application/json:
@@ -506,6 +506,87 @@ components:
               - properties
               - next_token
     QueryPropertyRecords:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              start_timestamp:
+                type: string
+                format: timestamp
+                example: '2024-08-17T15:29:15'
+                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+              end_timestamp:
+                type: string
+                format: timestamp
+                example: '2024-08-17T15:29:15'
+                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+              property:
+                type: string
+                format: uuid
+                example: '12345678-90ab-cdef-1234-567890abcdef'
+              labels:
+                type: array
+                items:
+                  type: string
+                  example: 'BoilerSystemPressure1'
+                  description: A data label
+              next_token:
+                type: string
+                format: uuid
+                example: '12345678-90ab-cdef-1234-567890abcdef'
+                description: When supplied, returns the next subsequent page of results from a prior query.
+            required:
+              - start_timestamp
+              - end_timestamp
+              - labels
+              - properties
+              - next_token
+responses:
+  UsersFetched:
+    description: Successfully fetched account users IDs
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/IdList'
+  UsersQueried:
+    description: Successfully queried detailed account users
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+  WingnutsFetched:
+    description: Successfully fetched account wingnut device IDs
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/IdList'
+  WingnutsQueried:
+    description: Successfully queried detailed account wingnut devices
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wingnut'
+  PropertiesFetched:
+    description: Successfully fetched account property IDs
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/IdList'
+  PropertiesQueried:
+    description: Successfully queried detailed account properties
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+  PropertyRecordsQueried:
+    description: 'There were 10 data points found'
     content:
       application/json:
         schema:
@@ -521,153 +602,72 @@ components:
               format: timestamp
               example: '2024-08-17T15:29:15'
               description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
-            property:
-              type: string
-              format: uuid
-              example: '12345678-90ab-cdef-1234-567890abcdef'
             labels:
               type: array
               items:
-                type: string
-                example: 'BoilerSystemPressure1'
-                description: A data label
+                $ref: '#/components/schemas/Record'
             next_token:
               type: string
+              nullable: true
               format: uuid
               example: '12345678-90ab-cdef-1234-567890abcdef'
-              description: When supplied, returns the next subsequent page of results from a prior query.
-          required:
-            - start_timestamp
-            - end_timestamp
-            - labels
-            - properties
-            - next_token
-  responses:
-    UsersFetched:
-      description: Successfully fetched account users IDs
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdList'
-    UsersQueried:
-      description: Successfully queried detailed account users
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-    WingnutsFetched:
-      description: Successfully fetched account wingnut device IDs
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdList'
-    WingnutsQueried:
-      description: Successfully queried detailed account wingnut devices
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Wingnut'
-    PropertiesFetched:
-      description: Successfully fetched account property IDs
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdList'
-    PropertiesQueried:
-      description: Successfully queried detailed account properties
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Property'
-    PropertyRecordsQueried:
-      description: 'There were 10 data points found'
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              start_timestamp:
-                type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
-              end_timestamp:
-                type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
-              labels:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Record'
-              next_token:
-                type: string
-                nullable: true
-                format: uuid
-                example: '12345678-90ab-cdef-1234-567890abcdef'
-                description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
-    PropertyRecords24Queried:
-      description: 'There were 10 data points found'
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              start_timestamp:
-                type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
-              end_timestamp:
-                type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
-              labels:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Record'
-              next_token:
-                type: string
-                nullable: true
-                format: uuid
-                example: '12345678-90ab-cdef-1234-567890abcdef'
-                description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
-    NoContent:
-      description: Request success - No data points found
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response'
-          example:
-            value:
-              error: 'There was a server issue'
-              errorCode: 400
-    Forbidden:
-      description: Invalid authentication or insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response'
-          example:
-            value:
-              error: 'Forbidden'
-              errorCode: 403
-    ResourceNotFound:
-      description: Cannot find request resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response'
-          example:
-            value:
-              error: 'Unsupported route: GET /example'
-              errorCode: 404
+              description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
+  PropertyRecords24Queried:
+    description: 'There were 10 data points found'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            start_timestamp:
+              type: string
+              format: timestamp
+              example: '2024-08-17T15:29:15'
+              description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+            end_timestamp:
+              type: string
+              format: timestamp
+              example: '2024-08-17T15:29:15'
+              description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+            labels:
+              type: array
+              items:
+                $ref: '#/components/schemas/Record'
+            next_token:
+              type: string
+              nullable: true
+              format: uuid
+              example: '12345678-90ab-cdef-1234-567890abcdef'
+              description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
+  NoContent:
+    description: Request success - No data points found
+  BadRequest:
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/inline_response'
+        example:
+          value:
+            error: 'There was a server issue'
+            errorCode: 400
+  Forbidden:
+    description: Invalid authentication or insufficient permissions
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/inline_response'
+        example:
+          value:
+            error: 'Forbidden'
+            errorCode: 403
+  ResourceNotFound:
+    description: Cannot find request resource
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/inline_response'
+        example:
+          value:
+            error: 'Unsupported route: GET /example'
+            errorCode: 404
