@@ -4,7 +4,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/BUDWANDINGER_1/wingnut-api/1.0.0
 info:
-  version: '1.1.0'
+  version: '1.1.1'
   title: wingnut-api
   description: The API for Wingnut IoT
 paths:
