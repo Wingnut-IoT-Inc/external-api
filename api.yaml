@@ -4,7 +4,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/BUDWANDINGER_1/wingnut-api/1.0.0
 info:
-  version: "1.0.0"
+  version: '1.0.0'
   title: wingnut-api
   description: The API for Wingnut IoT
 paths:
@@ -13,7 +13,7 @@ paths:
       summary: Get a list of account user IDs
       description: Get a list of account user IDs
       parameters:
-        - $ref: '#/components/parameters/X-Auth-Token'
+        - $ref: '#/components/parameters/x-api-key'
       responses:
         '200':
           $ref: '#/components/responses/UsersFetched'
@@ -104,11 +104,26 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
+  /properties/records_last_24h:
+    post:
+      summary: Query property records
+      description: Query property data records
+      parameters:
+        - $ref: '#/components/parameters/X-Auth-Token'
+      requestBody:
+        $ref: '#/components/requestBodies/QueryPropertyRecords24H'
+      responses:
+        '200':
+          $ref: '#/components/responses/PropertyRecordsQueried'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
 components:
   schemas:
     Label:
       type: string
-      example: "SystemPumpCurrent1"
+      example: 'SystemPumpCurrent1'
       description: Label/descriptor of the sensor's data
     Data:
       type: object
@@ -126,20 +141,20 @@ components:
         propertyId:
           type: string
           format: uuid
-          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: Static UUID-4 for property
         propertyName:
           type: string
-          example: "Happy Appartments"
+          example: 'Happy Apartments'
           description: User customizable name for property
         propertyExternalId:
           type: string
-          example: "00123-A"
+          example: '00123-A'
           description: User customizable ID for property
         timestamp:
           type: string
           format: timestamp
-          example: "2024-08-17T15:29:15"
+          example: '2024-08-17T15:29:15'
           description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
         data:
           type: array
@@ -150,23 +165,23 @@ components:
       properties:
         city:
           type: string
-          example: "Calgary"
+          example: 'Calgary'
           description: The city in whichthe property is located
         country:
           type: string
-          example: "Canada"
+          example: 'Canada'
           description: The country in which the property is located
         postalZip:
           type: string
-          example: "A1A 2B2"
+          example: 'A1A 2B2'
           description: The postal or zip code for the property
         provinceState:
           type: string
-          example: "Alberta"
+          example: 'Alberta'
           description: The proince or state in which the property is located
         streetAddress:
           type: string
-          example: "123 Happy Street NW"
+          example: '123 Happy Street NW'
           description: The street address of the property
     Threshold:
       type: object
@@ -181,7 +196,7 @@ components:
           description: Sensor data pointes LESS than this minimum threshold will trigger a property alarm
         thresholdStatus:
           type: string
-          example: "enabled"
+          example: 'enabled'
           description: Whether or not this threshold entity can trigger a property alarm (enabled/disabled)
     Recipient:
       type: object
@@ -189,11 +204,11 @@ components:
         id:
           type: string
           format: uuid
-          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: The user ID of the recipient. Querable via /users endpoint
         type:
           type: string
-          example: "email"
+          example: 'email'
           description: The notification method/s for the recipient. Currently only supports email
     Sensor:
       type: object
@@ -202,7 +217,7 @@ components:
           $ref: '#/components/schemas/Label'
         type:
           type: string
-          example: "thermistor4334K"
+          example: 'thermistor4334K'
           description: The type of sensor
         threshold:
           $ref: '#/components/schemas/Threshold'
@@ -212,19 +227,19 @@ components:
         id:
           type: string
           format: uuid
-          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: Static UUID-4 for property
         name:
           type: string
-          example: "Happy Appartments"
+          example: 'Happy Appartments'
           description: User customizable name for property
         externalId:
           type: string
-          example: "00123-A"
+          example: '00123-A'
           description: User customizable ID for property
         portfolio:
           type: string
-          example: "A1"
+          example: 'A1'
           description: User customizable portfolio name/ID for property
         address:
           $ref: '#/components/schemas/Address'
@@ -244,7 +259,7 @@ components:
         id:
           type: string
           format: uuid
-          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: Static UUID-4 for wingnut
         sensors:
           type: object
@@ -351,31 +366,41 @@ components:
         id:
           type: string
           format: uuid
-          example: "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: ID of the user
+        entityId:
+          type: string
+          format: string
+          example: 'user'
+          description: Entity type
+        externalId:
+          type: string
+          format: string
+          example: 'user'
+          description: User email
         firstName:
           type: string
-          example: "Bruce"
+          example: 'Bruce'
           description: The user's first name
         lastName:
           type: string
-          example: "Willis"
+          example: 'Willis'
           description: The user's last name
         phone:
           type: string
-          example: "+11231231234"
+          example: '+11231231234'
           description: The user's phone number
         email:
           type: string
-          example: "bruce.willis@gmail.com"
+          example: 'bruce.willis@gmail.com'
           description: The user's email address
         role:
           type: string
-          example: "admin"
+          example: 'admin'
           description: The user's role/permissions within their company's Wingnut user portal (admin/write/read)
-        status:
+        entityStatus:
           type: string
-          example: "verified"
+          example: 'verified'
           description: The user's account status within the Wingnut user portal (pending/verified)
     inline_response:
       required:
@@ -388,14 +413,20 @@ components:
         errorCode:
           type: integer
     IdList:
-      type: array
-      items:
-        type: string
-        example: "12345678-90ab-cdef-1234-567890abcdef"
-        description: Entity ID
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          description: Array of unique identifiers for entities
+      example:
+        ids:
+          - '05d8339f-3353-438a-9f90-470f6a175c8e'
+          - '08ee2554-d9a7-4b6f-b79a-025100cc65c3'
   parameters:
     X-Auth-Token:
-      name: X-Auth-Token
+      name: x-api-key
       in: header
       description: Authentication token
       required: true
@@ -410,7 +441,7 @@ components:
           schema:
             $ref: '#/components/schemas/IdList'
       required: true
-    QueryPropertyRecords:
+    QueryPropertyRecords24H:
       content:
         application/json:
           schema:
@@ -419,12 +450,12 @@ components:
               start_timestamp:
                 type: string
                 format: timestamp
-                example: "2024-08-17T15:29:15"
+                example: '2024-08-17T15:29:15'
                 description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
               end_timestamp:
                 type: string
                 format: timestamp
-                example: "2024-08-17T15:29:15"
+                example: '2024-08-17T15:29:15'
                 description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
               properties:
                 $ref: '#/components/schemas/IdList'
@@ -432,16 +463,56 @@ components:
                 type: array
                 items:
                   type: string
-                  example: "BoilerSystemPressure1"
+                  example: 'BoilerSystemPressure1'
                   description: A data label
               next_token:
                 type: string
                 format: uuid
-                example: "12345678-90ab-cdef-1234-567890abcdef"
+                example: '12345678-90ab-cdef-1234-567890abcdef'
                 description: When supplied, returns the next subsequent page of results from a prior query.
             required:
               - start_timestamp
               - end_timestamp
+              - labels
+              - properties
+              - next_token
+    QueryPropertyRecords:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            start_timestamp:
+              type: string
+              format: timestamp
+              example: '2024-08-17T15:29:15'
+              description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+            end_timestamp:
+              type: string
+              format: timestamp
+              example: '2024-08-17T15:29:15'
+              description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+            property:
+              type: string
+              format: uuid
+              example: '12345678-90ab-cdef-1234-567890abcdef'
+            labels:
+              type: array
+              items:
+                type: string
+                example: 'BoilerSystemPressure1'
+                description: A data label
+            next_token:
+              type: string
+              format: uuid
+              example: '12345678-90ab-cdef-1234-567890abcdef'
+              description: When supplied, returns the next subsequent page of results from a prior query.
+          required:
+            - start_timestamp
+            - end_timestamp
+            - labels
+            - properties
+            - next_token
   responses:
     UsersFetched:
       description: Successfully fetched account users IDs
@@ -486,7 +557,7 @@ components:
             items:
               $ref: '#/components/schemas/Property'
     PropertyRecordsQueried:
-      description: Successfully queried property records
+      description: 'There were 10 data points found'
       content:
         application/json:
           schema:
@@ -495,14 +566,14 @@ components:
               start_timestamp:
                 type: string
                 format: timestamp
-                example: "2024-08-17T15:29:15"
+                example: '2024-08-17T15:29:15'
                 description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
               end_timestamp:
                 type: string
                 format: timestamp
-                example: "2024-08-17T15:29:15"
+                example: '2024-08-17T15:29:15'
                 description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
-              records:
+              labels:
                 type: array
                 items:
                   $ref: '#/components/schemas/Record'
@@ -510,10 +581,37 @@ components:
                 type: string
                 nullable: true
                 format: uuid
-                example: "12345678-90ab-cdef-1234-567890abcdef"
+                example: '12345678-90ab-cdef-1234-567890abcdef'
+                description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
+    PropertyRecords24Queried:
+      description: 'There were 10 data points found'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              start_timestamp:
+                type: string
+                format: timestamp
+                example: '2024-08-17T15:29:15'
+                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
+              end_timestamp:
+                type: string
+                format: timestamp
+                example: '2024-08-17T15:29:15'
+                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
+              labels:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Record'
+              next_token:
+                type: string
+                nullable: true
+                format: uuid
+                example: '12345678-90ab-cdef-1234-567890abcdef'
                 description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
     NoContent:
-      description: Request success - No content to deliver
+      description: Request success - No data points found
     BadRequest:
       description: Bad Request
       content:
@@ -522,7 +620,7 @@ components:
             $ref: '#/components/schemas/inline_response'
           example:
             value:
-              error: 'Request body error: line 4, char 0'
+              error: 'There was a server issue'
               errorCode: 400
     Forbidden:
       description: Invalid authentication or insufficient permissions
@@ -532,7 +630,7 @@ components:
             $ref: '#/components/schemas/inline_response'
           example:
             value:
-              error: Invalid authentication or insufficient permissions
+              error: 'Forbidden'
               errorCode: 403
     ResourceNotFound:
       description: Cannot find request resource
@@ -542,5 +640,5 @@ components:
             $ref: '#/components/schemas/inline_response'
           example:
             value:
-              error: 'Entity does NOT exist: 12345678-90ab-cdef-1234-567890abcdef'
+              error: 'Unsupported route: GET /example'
               errorCode: 404
