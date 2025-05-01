@@ -659,7 +659,7 @@ components:
                 example:
                   - {
                       time: '2024-08-17T15:29:15'
-                      propertyId: 12345678-90ab-cdef-1234-567890abcdef
+                      propertyId: '12345678-90ab-cdef-1234-567890abcdef'
                       propertyExternalId: '010203'
                       propertyName: "Bruces House'
                       boilerSystemPressure1: '15.2'
@@ -668,7 +668,7 @@ components:
                     }
                   - {
                       time: '2024-08-17T15:29:15'
-                      propertyId: 22345678-90ab-cdef-1234-567890abcdef
+                      propertyId: '22345678-90ab-cdef-1234-567890abcdef'
                       propertyExternalId: '111213'
                       propertyName: 'Bruces Second House'
                       boilerSystemPressure1: '13.2'
