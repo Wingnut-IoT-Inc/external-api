@@ -464,8 +464,8 @@ components:
               description: The company Id the user is registered to
             role:
               type: string
-              example: "read"
-              description: The user's permission role
+              example: read
+              description: The users permission role
     inline_response:
       required:
         - error
