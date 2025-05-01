@@ -433,6 +433,17 @@ components:
           type: string
         errorCode:
           type: integer
+    ListIdObjects:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+        description: Array of unique identifiers for entities
+      example:
+        - id: "05d8339f-3353-438a-9f90-470f6a175c8e"
+        - id: "08ee2554-d9a7-4b6f-b79a-025100cc65c3"
     IdList:
       type: object
       properties:
@@ -461,7 +472,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdList'
+            $ref: '#/components/schemas/ListIdObjects'
     UsersQueried:
       description: Successfully queried detailed account users
       content:
@@ -475,7 +486,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdList'
+            $ref: '#/components/schemas/ListIdObjects'
     WingnutsQueried:
       description: Successfully queried detailed account wingnut devices
       content:
@@ -489,7 +500,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdList'
+            $ref: '#/components/schemas/ListIdObjects'
     PropertiesQueried:
       description: Successfully queried detailed account properties
       content:
