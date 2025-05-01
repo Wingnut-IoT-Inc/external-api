@@ -256,127 +256,134 @@ components:
           description: Optional user supplied name
         entityStatus:
           type: string
-          example: 'verified'
+          example: 'live'
           description: The wingnuts status (live, linked, unlinked, unassigned)
         companyName:
           type: string
           example: 'Example Inc'
           description: The company the wingnut is registered to
-        companyId:
+        createdAt:
           type: string
-          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
-          description: The company Id the wingnut is registered to
-        propertyId:
-          type: string
-          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
-          description: The property Id the wingnut is registered to
-        latestPost:
-          type: string
-          example: '2024-10-30 17:36:25'
-          description: The timestamp of the latest wingnut post
-        latestPostIp:
-          type: string
-          example: '96.51.48.35'
-          description: The ip address of the latest wingnut post
-        sensors:
+          example: "2022-04-05 14:41:51"
+          description: The timestamp of when the wingnut object was created
+        config:
           type: object
           properties:
-            AN1:
-              $ref: '#/components/schemas/Sensor'
-            AN2:
-              $ref: '#/components/schemas/Sensor'
-            AN3:
-              $ref: '#/components/schemas/Sensor'
-            AN4:
-              $ref: '#/components/schemas/Sensor'
-            AN5:
-              $ref: '#/components/schemas/Sensor'
-            AN6:
-              $ref: '#/components/schemas/Sensor'
-            AN7:
-              $ref: '#/components/schemas/Sensor'
-            AN8:
-              $ref: '#/components/schemas/Sensor'
-            AN9:
-              $ref: '#/components/schemas/Sensor'
-            AN10:
-              $ref: '#/components/schemas/Sensor'
-            AN11:
-              $ref: '#/components/schemas/Sensor'
-            AN12:
-              $ref: '#/components/schemas/Sensor'
-            AN13:
-              $ref: '#/components/schemas/Sensor'
-            AN14:
-              $ref: '#/components/schemas/Sensor'
-            AN15:
-              $ref: '#/components/schemas/Sensor'
-            AN16:
-              $ref: '#/components/schemas/Sensor'
-            AN17:
-              $ref: '#/components/schemas/Sensor'
-            AN18:
-              $ref: '#/components/schemas/Sensor'
-            AN19:
-              $ref: '#/components/schemas/Sensor'
-            AN20:
-              $ref: '#/components/schemas/Sensor'
-            AN21:
-              $ref: '#/components/schemas/Sensor'
-            AN22:
-              $ref: '#/components/schemas/Sensor'
-            AN23:
-              $ref: '#/components/schemas/Sensor'
-            AN24:
-              $ref: '#/components/schemas/Sensor'
-            AN25:
-              $ref: '#/components/schemas/Sensor'
-            AN26:
-              $ref: '#/components/schemas/Sensor'
-            AN27:
-              $ref: '#/components/schemas/Sensor'
-            AN28:
-              $ref: '#/components/schemas/Sensor'
-            AN29:
-              $ref: '#/components/schemas/Sensor'
-            AN30:
-              $ref: '#/components/schemas/Sensor'
-            AN31:
-              $ref: '#/components/schemas/Sensor'
-            AN32:
-              $ref: '#/components/schemas/Sensor'
-            DI1:
-              $ref: '#/components/schemas/Sensor'
-            DI2:
-              $ref: '#/components/schemas/Sensor'
-            DI3:
-              $ref: '#/components/schemas/Sensor'
-            DI4:
-              $ref: '#/components/schemas/Sensor'
-            DI5:
-              $ref: '#/components/schemas/Sensor'
-            DI6:
-              $ref: '#/components/schemas/Sensor'
-            DI7:
-              $ref: '#/components/schemas/Sensor'
-            DI8:
-              $ref: '#/components/schemas/Sensor'
-            DI9:
-              $ref: '#/components/schemas/Sensor'
-            DI10:
-              $ref: '#/components/schemas/Sensor'
-            DI11:
-              $ref: '#/components/schemas/Sensor'
-            DI12:
-              $ref: '#/components/schemas/Sensor'
-            DI13:
-              $ref: '#/components/schemas/Sensor'
-            DI14:
-              $ref: '#/components/schemas/Sensor'
-            DI15:
-              $ref: '#/components/schemas/Sensor'
-            DI16:
-              $ref: '#/components/schemas/Sensor'
+            companyId:
+              type: string
+              example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+              description: The company Id the wingnut is registered to
+            propertyId:
+              type: string
+              example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+              description: The property Id the wingnut is registered to
+            latestPost:
+              type: string
+              example: '2024-10-30 17:36:25'
+              description: The timestamp of the latest wingnut post
+            latestPostIp:
+              type: string
+              example: '96.51.48.35'
+              description: The ip address of the latest wingnut post
+            sensors:
+              type: object
+              properties:
+                AN1:
+                  $ref: '#/components/schemas/Sensor'
+                AN2:
+                  $ref: '#/components/schemas/Sensor'
+                AN3:
+                  $ref: '#/components/schemas/Sensor'
+                AN4:
+                  $ref: '#/components/schemas/Sensor'
+                AN5:
+                  $ref: '#/components/schemas/Sensor'
+                AN6:
+                  $ref: '#/components/schemas/Sensor'
+                AN7:
+                  $ref: '#/components/schemas/Sensor'
+                AN8:
+                  $ref: '#/components/schemas/Sensor'
+                AN9:
+                  $ref: '#/components/schemas/Sensor'
+                AN10:
+                  $ref: '#/components/schemas/Sensor'
+                AN11:
+                  $ref: '#/components/schemas/Sensor'
+                AN12:
+                  $ref: '#/components/schemas/Sensor'
+                AN13:
+                  $ref: '#/components/schemas/Sensor'
+                AN14:
+                  $ref: '#/components/schemas/Sensor'
+                AN15:
+                  $ref: '#/components/schemas/Sensor'
+                AN16:
+                  $ref: '#/components/schemas/Sensor'
+                AN17:
+                  $ref: '#/components/schemas/Sensor'
+                AN18:
+                  $ref: '#/components/schemas/Sensor'
+                AN19:
+                  $ref: '#/components/schemas/Sensor'
+                AN20:
+                  $ref: '#/components/schemas/Sensor'
+                AN21:
+                  $ref: '#/components/schemas/Sensor'
+                AN22:
+                  $ref: '#/components/schemas/Sensor'
+                AN23:
+                  $ref: '#/components/schemas/Sensor'
+                AN24:
+                  $ref: '#/components/schemas/Sensor'
+                AN25:
+                  $ref: '#/components/schemas/Sensor'
+                AN26:
+                  $ref: '#/components/schemas/Sensor'
+                AN27:
+                  $ref: '#/components/schemas/Sensor'
+                AN28:
+                  $ref: '#/components/schemas/Sensor'
+                AN29:
+                  $ref: '#/components/schemas/Sensor'
+                AN30:
+                  $ref: '#/components/schemas/Sensor'
+                AN31:
+                  $ref: '#/components/schemas/Sensor'
+                AN32:
+                  $ref: '#/components/schemas/Sensor'
+                DI1:
+                  $ref: '#/components/schemas/Sensor'
+                DI2:
+                  $ref: '#/components/schemas/Sensor'
+                DI3:
+                  $ref: '#/components/schemas/Sensor'
+                DI4:
+                  $ref: '#/components/schemas/Sensor'
+                DI5:
+                  $ref: '#/components/schemas/Sensor'
+                DI6:
+                  $ref: '#/components/schemas/Sensor'
+                DI7:
+                  $ref: '#/components/schemas/Sensor'
+                DI8:
+                  $ref: '#/components/schemas/Sensor'
+                DI9:
+                  $ref: '#/components/schemas/Sensor'
+                DI10:
+                  $ref: '#/components/schemas/Sensor'
+                DI11:
+                  $ref: '#/components/schemas/Sensor'
+                DI12:
+                  $ref: '#/components/schemas/Sensor'
+                DI13:
+                  $ref: '#/components/schemas/Sensor'
+                DI14:
+                  $ref: '#/components/schemas/Sensor'
+                DI15:
+                  $ref: '#/components/schemas/Sensor'
+                DI16:
+                  $ref: '#/components/schemas/Sensor'
     User:
       type: object
       properties:
