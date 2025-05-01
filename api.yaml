@@ -658,21 +658,21 @@ components:
                       description: an example data point for boiler return header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
                 example:
                   - {
-                      time: '2024-08-17T15:29:15'
-                      propertyId: '12345678-90ab-cdef-1234-567890abcdef'
-                      propertyExternalId: '010203'
-                      propertyName: 'Bruces House'
-                      boilerSystemPressure1: '15.2'
-                      boilerSupplyHeaderTemperature1: '166.123'
+                      time: '2024-08-17T15:29:15',
+                      propertyId: '12345678-90ab-cdef-1234-567890abcdef',
+                      propertyExternalId: '010203',
+                      propertyName: 'Bruces House',
+                      boilerSystemPressure1: '15.2',
+                      boilerSupplyHeaderTemperature1: '166.123',
                       boilerReturnHeaderTemperature1: '156.542'
                     }
                   - {
-                      time: '2024-08-17T15:29:15'
-                      propertyId: '22345678-90ab-cdef-1234-567890abcdef'
-                      propertyExternalId: '111213'
-                      propertyName: 'Bruces Second House'
-                      boilerSystemPressure1: '13.2'
-                      boilerSupplyHeaderTemperature1: '145.321'
+                      time: '2024-08-17T15:29:15',
+                      propertyId: '22345678-90ab-cdef-1234-567890abcdef',
+                      propertyExternalId: '111213',
+                      propertyName: 'Bruces Second House',
+                      boilerSystemPressure1: '13.2',
+                      boilerSupplyHeaderTemperature1: '145.321',
                       boilerReturnHeaderTemperature1: '132.987'
                     }
                 description: An array of records objects, each object containing sensor records values that were requested in the query. Properties requested will have sepearte records across all objects returned.
