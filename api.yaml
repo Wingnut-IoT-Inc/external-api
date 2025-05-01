@@ -257,7 +257,7 @@ components:
               $ref: '#/components/schemas/Address'
             alarmState:
               type: string
-              example: "ALARM:
+              example: 'ALARM'
               description: Identifies if any alarms are active at the property
             alarms:
               $ref: '#/components/schemas/Alarms'
