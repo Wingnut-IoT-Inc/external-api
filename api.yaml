@@ -393,7 +393,7 @@ components:
         externalId:
           type: string
           format: string
-          example: 'user'
+          example: 'bruce.willis@gmail.com'
           description: User email
         entityStatus:
           type: string
@@ -403,26 +403,33 @@ components:
           type: string
           example: 'Example Inc'
           description: The company the user is registered to
-        firstName:
-          type: string
-          example: 'Bruce'
-          description: The user's first name
-        lastName:
-          type: string
-          example: 'Willis'
-          description: The user's last name
-        phone:
-          type: string
-          example: '+11231231234'
-          description: The user's phone number
-        email:
-          type: string
-          example: 'bruce.willis@gmail.com'
-          description: The user's email address
-        companyId:
-          type: string
-          example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
-          description: The company Id the user is registered to
+        config:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: 'Bruce'
+              description: The user's first name
+            lastName:
+              type: string
+              example: 'Willis'
+              description: The user's last name
+            phone:
+              type: string
+              example: '+11231231234'
+              description: The user's phone number
+            email:
+              type: string
+              example: 'bruce.willis@gmail.com'
+              description: The user's email address
+            companyId:
+              type: string
+              example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+              description: The company Id the user is registered to
+            role:
+              type: string
+              example: "read"
+              description: The user's permission role
     inline_response:
       required:
         - error
