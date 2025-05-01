@@ -661,7 +661,7 @@ components:
                       time: '2024-08-17T15:29:15'
                       propertyId: '12345678-90ab-cdef-1234-567890abcdef'
                       propertyExternalId: '010203'
-                      propertyName: "Bruces House'
+                      propertyName: 'Bruces House'
                       boilerSystemPressure1: '15.2'
                       boilerSupplyHeaderTemperature1: '166.123'
                       boilerReturnHeaderTemperature1: '156.542'
