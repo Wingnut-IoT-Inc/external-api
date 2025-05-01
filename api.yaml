@@ -195,11 +195,11 @@ components:
         boilerSystemPressure1:
           type: string
           example: 'OK'
-          description: A sensor's alarm state for boiler system pressure 1
+          description: A sensors alarm state for boiler system pressure 1
         boilerReturnHeaderTemperature1:
           type: string
           example: 'OK'
-          description: A sensor's alarm state for boiler return header temperature 1
+          description: A sensors alarm state for boiler return header temperature 1
       description: Label and alarm state objects, varies depending on what sensors and alarms exist
     Sensor:
       type: object
