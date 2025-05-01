@@ -215,7 +215,7 @@ components:
       properties:
         entityType:
           type: string
-          example: "property"
+          example: 'property'
           description: The type of the entity
         entityStatus:
           type: string
@@ -227,11 +227,11 @@ components:
           description: User customizable ID for property
         companyName:
           type: string
-          example: "Bruce's Corp."
+          example: 'Bruce's Corp.'
           description: The name of the company that the property belongs to
         createdAt:
           type: string
-          example: "2022-09-13 15:55:16"
+          example: '2022-09-13 15:55:16'
           description: The timestamp of when the property entity was created
         id:
           type: string
@@ -289,11 +289,11 @@ components:
           description: The company the wingnut is registered to
         propertyName:
           type: string
-          example: "Bruce's House"
+          example: 'Bruces House'
           description: The name of the property that the wignut device is linked to
         createdAt:
           type: string
-          example: "2022-04-05 14:41:51"
+          example: '2022-04-05 14:41:51'
           description: The timestamp of when the wingnut object was created
         config:
           type: object
