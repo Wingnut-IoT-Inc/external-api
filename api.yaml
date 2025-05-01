@@ -630,31 +630,24 @@ components:
                     time:
                       type: string
                       format: timestamp
-                      example: '2024-08-17T15:29:15'
                       description: The timestamp of when the record was collected
                     propertyId:
                       type: string
-                      example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
                       description: The property Id of where the record was collected
                     propertyExternalId:
                       type: string
-                      example: '010203'
                       description: The user customizable property Id of where the record was collected
                     propertyName:
                       type: string
-                      example: 'Bruces House'
                       description: The name of the property where the record was collected
                     boilerSystemPressure1:
                       type: string
-                      example: '15.2'
                       description: an example data point for boiler system pressure 1. Any sensor/data label could be included in the record if exists and is included in the query body.
                     boilerSupplyHeaderTemperature1:
                       type: string
-                      example: '166.123'
                       description: an example data point for boiler supply header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
                     boilerReturnHeaderTemperature1:
                       type: string
-                      example: '156.542'
                       description: an example data point for boiler return header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
                 example:
                   - time: '2024-08-17T15:29:15'
