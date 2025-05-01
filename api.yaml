@@ -553,7 +553,6 @@ components:
             items:
               $ref: '#/components/schemas/Property'
     PropertyRecordsQueried:
-      description: 'There were 10 data points found'
       content:
         application/json:
           schema:
@@ -606,32 +605,57 @@ components:
                       example: '156.542'
                       description: an example data point for boiler return header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
     PropertyRecords24Queried:
-      description: 'There were 10 data points found'
       content:
         application/json:
           schema:
             type: object
             properties:
-              start_timestamp:
+              success:
                 type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to start querying records for in format yyyy-MM-ddTHH:mm:ss
-              end_timestamp:
+                example: 'true'
+                description: The query success or failure
+              message:
                 type: string
-                format: timestamp
-                example: '2024-08-17T15:29:15'
-                description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
-              labels:
+                example: 'There were 10 data points found'
+                description: Success or failure message
+              nextToken:
+                type: string
+                example: 'AYABeKYUDvlKolrlD5fm5lOEEXkAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6MzgzODMzNTc4NDA0OmtleS84ZjRlZDIxMi0wMzg5LTQ1OWYtYjQxZS02NmI4MTIxMjA2MmUAuAECAQB4_41BQXmUc7gPBqrt9bz_06cUCe3QMti9p6h9c77B-JIBzx_If9mcfb8QA0JxVQU0cwAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDJQY2LK4etUn_v9bygIBEIA7YbM14F-Wf-Qnl_OxSJlI5615hagU5oGy_W_ys6CWr475MmmeJjk6fV9XOfN09XRZbE5XnDgVjsbs0uACAAAAAAwAABAAAAAAAAAAAAAAAAAA7PJJaZKFvcT0mnwepWiyOv____8AAAABAAAAAAAAAAAAAAABAAABPw1NGW9p_fJmrmvYY9tr-z42DpA0P2STvSEtOwSmoyKgSjNvpCTDxE7i9KO99n8XcTT2TYVPTK0Q12oQ67DqfT3ye-D3bELAEVfSrtoQenuqCJ2Xy_4pxIfiXOimwvXcnLP6vD50zHv-035E92xAnUqfVKh3we08Ms8U_cnmazGG_ak5L2Krr44w--cja9heFOyIWOCUhdDTgZ4N5lLnD1fpEpyDqX2fwNuwtTSj6xSj5jwDy8dFgrvZjZ4gvFsg7B_NFRb9jMdMKVm9H33bvv7mdWZn-TKKXecyJOZcBNBPeex39TehyL92F-VpHjePP9CmzhfjYsrDiyeStSiLnMrY4S-wV-qznYq5Yzni-tJN2nKjF5E3F2Vvd1B186CKH36_7_cCSXtFGZphjGcsc2bljweniSfJ0b4N1hy2ks5YiRDKdUWwFYA3vvb4U4LZ'
+                description: Only exists if there is more data than can fit in a single response to the original query. Use this token in the next subsequent query to contiue fetching data associated with the original query. If nextToken does not exist, there is no more data to be fetched and the query is complete.
+              data:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Record'
-              next_token:
-                type: string
-                nullable: true
-                format: uuid
-                example: '12345678-90ab-cdef-1234-567890abcdef'
-                description: If not NULL, there are more items left to query that were able to be returned. Use this token in a subsequent query to query the next page of items.
+                  type: object
+                  properties:
+                    time:
+                      type: string
+                      format: timestamp
+                      example: '2024-08-17T15:29:15'
+                      description: The timestamp of when the record was collected
+                    propertyId:
+                      type: string
+                      example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+                      description: The property Id of where the record was collected
+                    propertyExternalId:
+                      type: string
+                      example: '010203'
+                      description: The user customizable property Id of where the record was collected
+                    propertyName:
+                      type: string
+                      example: 'Bruces House'
+                      description: The name of the property where the record was collected
+                    boilerSystemPressure1:
+                      type: string
+                      example: '15.2'
+                      description: an example data point for boiler system pressure 1. Any sensor/data label could be included in the record if exists and is included in the query body.
+                    boilerSupplyHeaderTemperature1:
+                      type: string
+                      example: '166.123'
+                      description: an example data point for boiler supply header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
+                    boilerReturnHeaderTemperature1:
+                      type: string
+                      example: '156.542'
+                      description: an example data point for boiler return header temperature 1. Any sensor/data label could be included in the record if exists and is included in the query body.
     NoContent:
       description: Request success - No data points found
     BadRequest:
@@ -688,13 +712,22 @@ components:
                 example: '2024-08-17T15:29:15'
                 description: The time by which to stop querying records for in format yyyy-MM-ddTHH:mm:ss
               properties:
-                $ref: '#/components/schemas/IdList'
+                type: array
+                items:
+                  type: string
+                example:
+                 - '12345678-90ab-cdef-1234-567890abcdef'
+                 - '22345678-90ab-cdef-1234-567890abcdef'
+                description: Array of properties to query records for
               labels:
                 type: array
                 items:
                   type: string
-                  example: 'BoilerSystemPressure1'
-                  description: A data label
+                example:
+                  - 'BoilerSystemPressure1'
+                  - 'BoilerSupplyHeaderTemperature1'
+                  - 'BoilerReturnHeaderTemperature1'
+                description: An array of sensor/data labels to query records for
               next_token:
                 type: string
                 format: uuid
