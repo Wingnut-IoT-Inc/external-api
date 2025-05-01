@@ -434,7 +434,7 @@ components:
         entityStatus:
           type: string
           example: 'verified'
-          description: The user's account status within the Wingnut user portal (pending/verified)
+          description: The users account status within the Wingnut user portal (pending/verified)
         companyName:
           type: string
           example: 'Example Inc'
