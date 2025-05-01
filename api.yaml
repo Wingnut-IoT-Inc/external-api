@@ -110,7 +110,7 @@ paths:
         $ref: '#/components/requestBodies/QueryPropertyRecords24H'
       responses:
         '200':
-          $ref: '#/components/responses/PropertyRecordsQueried'
+          $ref: '#/components/responses/PropertyRecords24Queried'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
