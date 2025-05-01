@@ -670,7 +670,7 @@ components:
                     propertyName: 'Bruces Second House'
                     boilerSystemPressure1: '13.2'
                     boilerSupplyHeaderTemperature1: '145.321'
-                    boilerReturnHeaderTemperature1: '132.987
+                    boilerReturnHeaderTemperature1: '132.987'
                 description: An array of records objects, each object containing sensor records values that were requested in the query. Properties requested will have sepearte records across all objects returned.
     NoContent:
       description: Request success - No data points found
