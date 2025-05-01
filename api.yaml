@@ -192,14 +192,15 @@ components:
     Alarms:
       type: object
       properties:
-        label:
-          type: string
-          example: 'boilerSystemPressure1'
-          description: A sensor label
-        type:
+        boilerSystemPressure1:
           type: string
           example: 'OK'
-          description: The current state of the sensor (OK / ALARM)
+          description: A sensor's alarm state for boiler system pressure 1
+        boilerReturnHeaderTemperature1:
+          type: string
+          example: 'OK'
+          description: A sensor's alarm state for boiler return header temperature 1
+      description: Label and alarm state objects, varies depending on what sensors and alarms exist
     Sensor:
       type: object
       properties:
@@ -212,30 +213,54 @@ components:
     Property:
       type: object
       properties:
+        entityType:
+          type: string
+          example: "property"
+          description: The type of the entity
+        entityStatus:
+          type: string
+          example: "active"
+          description: The status of the property entity
+        externalId:
+          type: string
+          example: '00123-A'
+          description: User customizable ID for property
+        companyName:
+          type: string
+          example: "Bruce's Corp."
+          description: The name of the company that the property belongs to
+        createdAt:
+          type: string
+          example: "2022-09-13 15:55:16"
+          description: The timestamp of when the property entity was created
         id:
           type: string
           format: uuid
           example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
           description: Static UUID-4 for property
-        name:
-          type: string
-          example: 'Happy Apartments'
-          description: User customizable name for property
-        externalId:
-          type: string
-          example: '00123-A'
-          description: User customizable ID for property
-        portfolio:
-          type: string
-          example: 'A1'
-          description: User customizable portfolio name/ID for property
-        address:
-          $ref: '#/components/schemas/Address'
-        alarms:
+        config:
           type: object
-          items:
-            $ref: '#/components/schemas/Alarms'
-          description: A list of active alarms that exist for the property
+          properties:
+            companyId:
+              type: string
+              example: '0729a580-2240-11e6-9eb5-0002a5d5c51b'
+              description: The company Id the property belongs to              
+            name:
+              type: string
+              example: 'Happy Apartments'
+              description: User customizable name for property
+            portfolio:
+              type: string
+              example: 'A1'
+              description: User customizable portfolio name/ID for property
+            address:
+              $ref: '#/components/schemas/Address'
+            alarmState:
+              type: string
+              example: "ALARM:
+              description: Identifies if any alarms are active at the property
+            alarms:
+              $ref: '#/components/schemas/Alarms'
     Wingnut:
       type: object
       properties:
