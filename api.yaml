@@ -730,8 +730,11 @@ components:
                 type: array
                 items:
                   type: string
-                  example: 'BoilerSystemPressure1'
-                  description: A data label
+                example:
+                  - 'BoilerSystemPressure1'
+                  - 'BoilerSupplyHeaderTemperature1'
+                  - 'BoilerReturnHeaderTemperature1'
+                description: An array of desired sensor/data labels to be queried
               next_token:
                 type: string
                 format: uuid
