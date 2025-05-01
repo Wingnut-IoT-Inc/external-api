@@ -485,8 +485,8 @@ components:
             type: string
         description: Array of unique identifiers for entities
       example:
-        - id: "05d8339f-3353-438a-9f90-470f6a175c8e"
-        - id: "08ee2554-d9a7-4b6f-b79a-025100cc65c3"
+        - id: '05d8339f-3353-438a-9f90-470f6a175c8e'
+        - id: '08ee2554-d9a7-4b6f-b79a-025100cc65c3'
     IdList:
       type: object
       properties:
