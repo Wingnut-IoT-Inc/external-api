@@ -227,7 +227,7 @@ components:
           description: User customizable ID for property
         companyName:
           type: string
-          example: 'Bruce's Corp.'
+          example: 'Bruces Corp.'
           description: The name of the company that the property belongs to
         createdAt:
           type: string
