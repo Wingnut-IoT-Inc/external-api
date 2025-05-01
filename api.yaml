@@ -262,6 +262,10 @@ components:
           type: string
           example: 'Example Inc'
           description: The company the wingnut is registered to
+        propertyName:
+          type: string
+          example: "Bruce's House"
+          description: The name of the property that the wignut device is linked to
         createdAt:
           type: string
           example: "2022-04-05 14:41:51"
